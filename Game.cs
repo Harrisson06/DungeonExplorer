@@ -10,7 +10,7 @@ namespace DungeonExplorer
 
         public Game()
         {
-            // Initialize the game with one room and one player
+            player = new Player("Smell",10);
 
         }
         public void Start()
@@ -19,7 +19,8 @@ namespace DungeonExplorer
             bool playing = false;
             while (playing)
             {
-                // Code your playing logic here
+                player.PickUpItem("Sword");
+                string test = player.InventoryContents();
             }
         }
     }
