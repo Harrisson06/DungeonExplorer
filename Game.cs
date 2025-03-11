@@ -12,6 +12,7 @@ namespace DungeonExplorer
         private Check check;
         public Game()
         {
+
         }
 
         //Creating a function to start the game.
