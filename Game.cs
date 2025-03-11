@@ -19,7 +19,7 @@ namespace DungeonExplorer
         {
             //Welcome message to the user.
             Console.WriteLine("Welcome to Dungeon Explorer!" + "\n");
-
+            Console.WriteLine("Do you want to activate debug mode?")
             //Getting user information.
             Console.Write("Enter your name: ");
             string Name = Console.ReadLine();
@@ -63,6 +63,7 @@ namespace DungeonExplorer
                 //if the user does not use the potion it remains in their inventory.
                 string answer = Console.ReadLine();
                 answer.ToLower();
+
                 switch (answer)
                 {
                     case "yes":
