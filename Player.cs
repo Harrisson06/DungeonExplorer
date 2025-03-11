@@ -27,7 +27,7 @@ namespace DungeonExplorer
             inventory.Add(itemName);
         }
 
-        public void RemoveIem(string itemName)
+        public void RemoveItem(string itemName)
         {
             inventory.Remove(itemName);
         }
