@@ -8,11 +8,11 @@ namespace DungeonExplorer
     internal class Game
     {
         private Player player;
-        private readonly Room currentRoom;
+        private Room currentRoom;
         private Check check;
         public Game()
         {
-
+            
         }
 
         //Creating a function to start the game.
@@ -33,9 +33,11 @@ namespace DungeonExplorer
                 //Creates a new instance of the player.
                 player = new Player(Name, 50);
 
+                currentRoom.CreateRooms();
+
                 //Creating a new room object and displaying the description of the room.
-                Room Basement = new Room("You awaken, hurt and confused in a cold dark room. A basement perhaps? lights come from the top of a stairwell");
-                string BasementDescription = Basement.GetDescription();
+                //Room Basement = new Room("You awaken, hurt and confused in a cold dark room. A basement perhaps? lights come from the top of a stairwell");
+                string BasementDescription = currentRoom.GetDescription();
                 Console.WriteLine(BasementDescription);
                 //Displays the player stats.
                 PlayerStats();
@@ -83,26 +85,26 @@ namespace DungeonExplorer
                 //Using switch case to check if the user wants to use the potion or not.
                 //if the user does not use the potion it remains in their inventory.
                 string answer = Console.ReadLine();
-                    answer.ToLower();
-                    switch (answer)
-                    {
-                        case "yes":
-                            //The health will increase by 50 and they lose the potion. 
-                            player.Health += 50;
-                            Console.WriteLine("You used the potion, your health has been increased" + "\n");
-                            PlayerStats();
-                            player.RemoveItem("HealthPotion");
+                answer.ToLower();
+                switch (answer)
+                {
+                    case "yes":
+                        //The health will increase by 50 and they lose the potion. 
+                        player.Health += 50;
+                        Console.WriteLine("You used the potion, your health has been increased" + "\n");
+                        PlayerStats();
+                        player.RemoveItem("HealthPotion");
 
-                            Console.WriteLine(player.InventoryContents());
-                            break;
-                        case "no":
-                            Console.WriteLine("You didint use the potion" + "\n");
-                            PlayerStats();
-                            Console.WriteLine(player.InventoryContents());
-                            break;
-                        default:
-                            Console.WriteLine("Invalid input, please try again");
-                            break;
+                        Console.WriteLine(player.InventoryContents());
+                        break;
+                    case "no":
+                        Console.WriteLine("You didint use the potion" + "\n");
+                        PlayerStats();
+                        Console.WriteLine(player.InventoryContents());
+                        break;
+                    default:
+                        Console.WriteLine("Invalid input, please try again");
+                        break;
                 }
                 //Allows the user to exit the game at the end of the loop.
                 Console.WriteLine("Press any key to exit...");
@@ -117,5 +119,5 @@ namespace DungeonExplorer
         {
             Console.WriteLine("USER STATS" + "\n" + "Name: " + player.Name + "\n" + "Health:" + player.Health + "\n");
         }
-     }
+    }
 }
