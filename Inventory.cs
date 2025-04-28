@@ -9,7 +9,7 @@ namespace DungeonExplorer
     class Inventory
     {
         // Declare a private field to store the inventory.
-        private List<string> inventory;
+        public List<string> inventory;
 
         // Initializes the inventory in the constructor.
         public Inventory()
@@ -32,12 +32,17 @@ namespace DungeonExplorer
         // Returns the contents of the Inventory list with a comma separator.
         public string InventoryContents()
         {
-            return string.Join(", ", inventory); 
+            return string.Join(", ", inventory.Select(i => i.Name)); 
         }
 
-        public IEnumerable<Weapon> GetWeapon()
+        public IEnumerable<Weapons> GetWeapons()
         {
-            return Inventory.OfType<Weapon>();
+            return inventory.OfType<Weapons>();
+        }
+
+        public IEnumerable<Potions> GetPotions()
+        {
+            return inventory.OfType<Potions>();
         }
     }
 }

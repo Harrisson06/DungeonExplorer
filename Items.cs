@@ -12,23 +12,23 @@ namespace DungeonExplorer
         
     }
 
-    public class Items
+    public class PlayerItems
     {
         //Creating a class for the items, which will be used to create different types of items.
         public string Name { get; private set; }
         public string Description { get; private set; }
 
-        public Items(string name, string description )
+        public PlayerItems(string name, string description)
         { 
             name = Name;
             description = Description;
         }
     }
 
-    public class Weapons : Items
+    public class Weapons : PlayerItems
     {
         private int Damage { get; set; }
-        public Weapon(string name, string description, int damage) : base(name, description)
+        public Weapons(string name, string description, int damage) : base(name, description)
         {
             Damage = damage;
         }   
@@ -38,10 +38,10 @@ namespace DungeonExplorer
         }
     }
 
-    public class Potions : Items
+    public class Potions : PlayerItems
     {
         public int Health { get; private set; }
-        public Potion(string name, string description, int health) : base(name, description)
+        public Potions(string name, string description, int health) : base(name, description)
         {
             Health = health;
         }

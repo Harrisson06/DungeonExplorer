@@ -47,6 +47,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="Items.cs" />
+    <Compile Include="Map.cs" />
     <Compile Include="Monsters.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />

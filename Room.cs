@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Dynamic;
+using System.Linq;
 
 namespace DungeonExplorer
 {
@@ -9,27 +9,28 @@ namespace DungeonExplorer
 
         public Room LeftRoom { get; set; }
         public Room RightRoom { get; set; }
-        private List<Items> Items { get; set; }
+        private List<PlayerItems> Items { get; set; }
+        public Monster Monster { get; set; }
 
-        public Room(string description, Monsters monster = null, params PlayerItems[] items)
+        public Room(string description, Monster monster = null, params PlayerItems[] items)
         {
             this.description = description;
+            this.Monster = monster;
+            this.Items = new List<PlayerItems>(items);
         }
 
         public string GetDescription()
         {
-            return description;
-        }
-        
-        public void CreateRooms()
-        {
-            Room Basement = new Room("You awaken, hurt and confused in a cold dark room. A basement perhaps? lights come from the top of a stairwell.");
-            Room LivingRoom = new Room("Food rotting on the plates at the dinner table, they left in a hurry.");
-            Room Kitchen = new Room("Theres pots and pans on the floor, maybe there was a strugle ");
-            Room MasterBedroom = new Room("The bed .");
-            Room Bathroom = new Room("A mysterious ancient temple.");
-            Room DiningRoom = new Room("A Large circular arena," + 
-                "Desolate but loud with memories.");
+            var ItemDescription = Items != null && Items.Count > 0
+                ? "You see: " + string.Join(", ", Items.Select(i => i.Name))
+                : "No items have been found in the room.";
+
+            var MonsterDescription = Monster != null
+                ? "You see a " + Monster.GetName() + " in the room."
+                : "No monsters have been found in the room.";
+
+
+            return description + "\n" + ItemDescription + "\n" + MonsterDescription;
         }
     }
-}  
+}
