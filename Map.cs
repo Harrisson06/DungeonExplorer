@@ -34,8 +34,8 @@ namespace DungeonExplorer
             // Creating a set of rooms to be used in the game using Three parameters, Description, monster and potion.
             // Null is used to set the monster or potion to nothing, this is used to create rooms that do not have a monster or potion in them.
 
-            var Basement = new Room("You awaken, hurt and confused in a cold dark room. A basement perhaps?"
-                + "Theres something on the floor, Do you want to pick it up?\n", null, HealthPotion);
+            var Basement = new Room("\nYou awaken, hurt and confused in a cold dark room. A basement perhaps?"
+                + "\nTheres something on the floor, Do you want to pick it up?\n", null, HealthPotion);
 
             var DownstairsHallway = new Room("You walk up the stairs, and see a hallway with doors on either side.\n"
                 + "You hear a noise coming from the left door, do you want to investigate?", null, null);

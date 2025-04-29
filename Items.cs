@@ -21,8 +21,8 @@ namespace DungeonExplorer
 
         public PlayerItems(string name, string description)
         { 
-            name = Name;
-            description = Description;
+            Name = name;
+            Description = description;
         }
     }
 

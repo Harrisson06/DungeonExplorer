@@ -9,7 +9,7 @@ namespace DungeonExplorer
     // It holds the properties of the monster, which are Name, Health and Damage.
     // The class is connected to the abstract class "creature", this is to group damageable objects together.
     // This constructor is getting and privately setting three properties of the monster, Name, Health and Damage.
-    class Monster : Creature
+    public class Monster : Creature
     {
         public string Name { get; private set; }
         public int Health { get; private set; }
@@ -26,6 +26,11 @@ namespace DungeonExplorer
         public string GetName()
         {
             return Name;
+        }
+
+        public void MonsterAttack()
+        {
+            Console.WriteLine($"{Name} Deals {Damage} Damage!");
         }
     }
 }

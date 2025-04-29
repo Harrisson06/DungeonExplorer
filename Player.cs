@@ -27,7 +27,13 @@ namespace DungeonExplorer
         public Player(string name, int health)
         {
             Name = name;
-            Health = 50;
+            Health = 100;
+        }
+
+        public void PlayerStats()
+        {
+            Console.WriteLine("Player Name: " + Name);
+            Console.WriteLine("Player Health: " + Health);
         }
 
         // This class is used to create a Monster in the game, and its connected to the abstract class "Creature".

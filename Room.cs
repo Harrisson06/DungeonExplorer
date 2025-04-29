@@ -12,21 +12,24 @@ namespace DungeonExplorer
         public Room UpRoom { get; set; }
         public Room BackRoom { get; set; }
 
-        private List<PlayerItems> Items { get; set; }
+        public List<PlayerItems> Items { get; set; }
         public Monster Monster { get; set; }
 
         public Room(string description, Monster monster = null, params PlayerItems[] items)
         {
             this.description = description;
-            this.Monsters = monster;
-            this.Items = new List<PlayerItems>(items);
+            this.Monster = monster;
+            if (items is null)
+                this.Items = new List<PlayerItems>();
+            else
+                this.Items = new List<PlayerItems>(items);
         }
 
         public string GetDescription()
         {
-            var ItemDescription = Items != null && Items.Count > 0
+            var ItemDescription = (Items != null && Items.Count > 0
                 ? "You see: " + string.Join(", ", Items.Select(i => i.Name))
-                : "No items have been found in the room.";
+                : "No items have been found in the room.");
 
             var MonsterDescription = Monster != null
                 ? "You see a " + Monster.GetName() + " in the room."
