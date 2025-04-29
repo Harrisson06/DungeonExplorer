@@ -8,31 +8,31 @@ namespace DungeonExplorer
 {
     class Inventory
     {
-        // Declare a private field to store the inventory.
-        public List<string> inventory;
+        // Declare a private field to store the inventory.  
+        public List<object> inventory;
 
-        // Initializes the inventory in the constructor.
+        // Initializes the inventory in the constructor.  
         public Inventory()
         {
-            inventory = new List<string>(); 
+            inventory = new List<object>();
         }
 
-        public void PickUpItem(string itemName)
+        public void PickUpItem(object item)
         {
-            // Add the item to the inventory.
-            inventory.Add(itemName); 
+            // Add the item to the inventory.  
+            inventory.Add(item);
         }
 
-        // Removes an item from the inventory.
-        public void RemoveItem(string itemName)
+        // Removes an item from the inventory.  
+        public void RemoveItem(object item)
         {
-            inventory.Remove(itemName); 
+            inventory.Remove(item);
         }
 
-        // Returns the contents of the Inventory list with a comma separator.
+        // Returns the contents of the Inventory list with a comma separator.  
         public string InventoryContents()
         {
-            return string.Join(", ", inventory.Select(i => i.Name)); 
+            return string.Join(", ", inventory.Select(i => i.ToString()));
         }
 
         public IEnumerable<Weapons> GetWeapons()

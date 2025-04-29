@@ -9,13 +9,16 @@ namespace DungeonExplorer
 
         public Room LeftRoom { get; set; }
         public Room RightRoom { get; set; }
+        public Room UpRoom { get; set; }
+        public Room BackRoom { get; set; }
+
         private List<PlayerItems> Items { get; set; }
         public Monster Monster { get; set; }
 
         public Room(string description, Monster monster = null, params PlayerItems[] items)
         {
             this.description = description;
-            this.Monster = monster;
+            this.Monsters = monster;
             this.Items = new List<PlayerItems>(items);
         }
 

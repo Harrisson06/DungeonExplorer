@@ -12,20 +12,16 @@ namespace DungeonExplorer
         public bool CheckItem(string itemName, Inventory inventory)
         {
             // Use the provided inventory instance to access the inventory list
-            return inventory.inventory.Contains(itemName);
+            if (inventory.inventory.Contains(itemName) == true)
+                return true;
 
-            
+            else return false;
+
+
+
 
             // If it does, return true
             // If it doesn't, return false
-        }
-    }
-
-    internal class DamageCheck
-    {
-        public bool? CheckDamage(string name, Inventory inventory)
-        {
-            return null;
         }
     }
 }

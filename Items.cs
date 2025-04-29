@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
+    // future class to implement the ICollectable interface
     public abstract class ICollectable
     {
         
@@ -25,9 +26,11 @@ namespace DungeonExplorer
         }
     }
 
+    // This class is used to create weapons for the player, and its connected to the abstract class "PlayerItems".
     public class Weapons : PlayerItems
     {
         private int Damage { get; set; }
+        // This constructor is getting and privately setting three properties of the weapon, Name, Description and Damage.
         public Weapons(string name, string description, int damage) : base(name, description)
         {
             Damage = damage;
@@ -38,9 +41,12 @@ namespace DungeonExplorer
         }
     }
 
+    // This class is used to create potions for the player, and its connected to the abstract class "PlayerItems".
     public class Potions : PlayerItems
     {
         public int Health { get; private set; }
+
+        // This constructor is getting and privately setting three properties of the potion, Name, Description and Health.
         public Potions(string name, string description, int health) : base(name, description)
         {
             Health = health;

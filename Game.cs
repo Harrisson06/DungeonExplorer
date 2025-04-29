@@ -11,7 +11,8 @@ namespace DungeonExplorer
         private Player player;
         private Room currentRoom;
         private ItemCheck check;
-        private Inventory inventory;
+        private Inventory inventory = new Inventory();
+        public Game(MapRoute map)
         public Game()
         {
         }
@@ -29,7 +30,11 @@ namespace DungeonExplorer
             bool playing = true;
             while (playing)
             {
-                player = new Player(Name, health:);
+                Player user = new Player(Name, 50);
+                new Map().MapRoute();
+
+
+
             }
         }
     }
