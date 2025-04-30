@@ -1,13 +1,17 @@
-﻿using System;
-
+﻿using System.Linq;
 
 namespace DungeonExplorer
 {
-    public class Check
+    // Checking the Inventory for items.
+    internal class ItemCheck
     {
-        public bool CheckInventory(Player player, string item)
+        public bool CheckItem(Inventory inventory)
         {
-            return player.InventoryContents().Contains(item);
+            // Use the provided inventory instance to access the inventory list
+            if (inventory.inventory.Count() > 0)
+                return true;
+
+            else return false;
         }
     }
 }
