@@ -4,16 +4,26 @@ using System.Collections.Generic;
 namespace DungeonExplorer
 {
     // This abstract class is used to create a base class for all creatures and players in the game.
-    public abstract class Creature
+    public interface IDamageable
     {
-        private class IDamageable
+        void takedamage(int Damage);
+        void Heal(int Health);
+    }
+    public abstract class Creature : IDamageable
+    {
+        public int Health { get; set; }
+        public void takedamage(int Damage)
         {
-            private int Damage { get; set; }
+            Health -= Damage;
+        }
+        public void Heal(int Health)
+        {
+            this.Health += Health;
+        }
 
-            public IDamageable(int damage)
-            {
-                Damage = damage;
-            }
+        public Creature(int health)
+        {
+            Health = health;
         }
     }
 
@@ -21,10 +31,11 @@ namespace DungeonExplorer
     // Setting the player class to hold two properties, Name and Health.
     public class Player : Creature
     {
-        public string Name { get; private set; }
-        public int Health { get; set; }
+        internal static Player User;
 
-        public Player(string name, int health)
+        public string Name { get; private set; }
+
+        public Player(string name, int health) : base(health)
         {
             Name = name;
             Health = 100;
@@ -32,15 +43,8 @@ namespace DungeonExplorer
 
         public void PlayerStats()
         {
-            Console.WriteLine("Player Name: " + Name);
-            Console.WriteLine("Player Health: " + Health);
-        }
-
-        // This class is used to create a Monster in the game, and its connected to the abstract class "Creature".
-        public class Monstertype : Creature
-        {
-            public int Health { get; private set; }
-            public int Damage { get; set; }
+            Console.WriteLine($"Player Name: ", Name);
+            Console.WriteLine($"Player Health: ", Health);
         }
     }
 }

@@ -12,11 +12,10 @@ namespace DungeonExplorer
     public class Monster : Creature
     {
         public string Name { get; private set; }
-        public int Health { get; private set; }
         public int Damage { get; private set; }
 
         // Constructor for MonsterType class  
-        public Monster(string name, int health, int damage)
+        public Monster(string name, int health, int damage) : base(health)
         {
             Name = name;
             Health = health;
@@ -30,7 +29,8 @@ namespace DungeonExplorer
 
         public void MonsterAttack()
         {
-            Console.WriteLine($"{Name} Deals {Damage} Damage!");
+            Console.WriteLine($"{Name} Dealt {Damage} Damage");
+            Player.User.takedamage(Damage);
         }
     }
 }

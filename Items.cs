@@ -13,7 +13,7 @@ namespace DungeonExplorer
         
     }
 
-    public class PlayerItems
+    public abstract class PlayerItems
     {
         //Creating a class for the items, which will be used to create different types of items.
         public string Name { get; private set; }
