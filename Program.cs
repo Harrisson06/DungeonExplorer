@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
+    // This is the main function entry point for the application.
     internal class Program
     {
         static void Main()

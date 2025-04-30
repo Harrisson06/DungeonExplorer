@@ -19,7 +19,6 @@ namespace DungeonExplorer
         public void MapRoute()
         {
             // Creating a set of weapons to be used in the game using Three parameters, Name, Description and Damage.
-            var Fists = new Weapons("Fists", "Your fists, not very effective.", 5);
             var WoodenSword = new Weapons("Wooden Sword", "A Wooden sword, not very effective.", 10);
             var IronSword = new Weapons("Iron Sword", "An Iron sword, much more durable.", 16);
             var SteelSword = new Weapons("Steel Sword", "A steel sword, much more durable.", 27);
@@ -31,7 +30,6 @@ namespace DungeonExplorer
             // Creating a set of monsters to be used in the game using Three parameters, Name, Health and Damage.
             var Goblin = new Monster("Goblin", 15, 12);
             var Skeleton = new Monster("Skeleton", 20, 17);
-            var Zombie = new Monster("Zombie", 25, 24);
             var Dragon = new Monster("Dragon", 50, 30);
             
             // Creating a set of rooms to be used in the game using Three parameters, Description, monster and potion.
@@ -41,17 +39,17 @@ namespace DungeonExplorer
                 + "\nYou awaken, hurt and confused in a cold dark room. you must be in the basement?"
                 + "\nTheres something on the floor, Do you want to pick it up?\n", null, HealthPotion);
 
-            var DownstairsHallway = new Room("\n{Downstairs Hallway}\n" 
+            var MainHallway = new Room("\n{Downstairs Hallway}\n" 
                 + "\nYou walk up the stairs, and see a hallway with doors on either side."
-                + "\nYou hear a noise coming from the left door?", null, null);
+                + "\nYou hear a noise coming from the right door?", null, null);
 
             var LivingRoom = new Room("\n{Living Room}\n" 
                 + "\nYou go into the living room. The TV is still on," +
                 " \nThey must have left in a hurry. ", null, WoodenSword);
 
             var Kitchen = new Room("\n{Kitchen}\n" 
-                + "\nYou Enter the Kitchen. There's pots and pans on the floor, maybe there was a struggle,"
-                + "\nA goblin jumps up from the counter and attacks you, what do you want to do?", Goblin, null);
+                + "\nYou Enter the Kitchen. There's pots and pans on the floor, maybe there was a struggle."
+                , Goblin, null);
 
             var MasterBedroom = new Room("\n{Master Bedroom}\n" 
                 + "\nWalking into the Master Bedroom. Theres a faint object glowing under the duvet," 
@@ -59,43 +57,43 @@ namespace DungeonExplorer
 
             var UpstairsHallway = new Room("\n{Upstairs Hallway}\n" 
                 + "\nAfter leaving the MasterBedroom, you come across a scrpaing sound at the end of the hallway."
-                + "\nA skeleton jumps you, What do you want to do?", Skeleton, IronSword);
+                , Skeleton, IronSword);
 
             var DiningRoom = new Room("\n{Dining Room}\n" 
-                + "\nA Large circular arena, desolate but loud with memories.", null, StrongHealthPotion, SteelSword);
+                + "\nThe tabale is set, where did they all go?", null, StrongHealthPotion, SteelSword);
 
             var Attic = new Room("\n{Attic}\n" 
                 + "\nA densly populated room with lots of treasure" 
-                + "\nyou hear a faint noise coming from the corner of the room, ITS A BABY DRAGON,"
-                + "\nIt looks hungry, what do you want to do?", Dragon, null);
+                + "\nyou hear a faint noise coming from the corner of the room."
+                , Dragon, null);
 
             // Setting the pathing for the rooms, the basement has only one way out, up the stiars.
-            Basement.UpRoom = DownstairsHallway;
+            Basement.UpRoom = MainHallway;
 
             // Three routes, the living room and the kitchen, or upstairs to the hallway.
-            DownstairsHallway.LeftRoom = LivingRoom;
-            DownstairsHallway.RightRoom = Kitchen;
-            DownstairsHallway.UpRoom = UpstairsHallway;
+            MainHallway.LeftRoom = LivingRoom;
+            MainHallway.RightRoom = Kitchen;
+            MainHallway.UpRoom = UpstairsHallway;
 
             // The Kitchen allows you to go back to the hallway, or into the dining room.
-            Kitchen.BackRoom = DownstairsHallway;
+            Kitchen.BackRoom = MainHallway;
             Kitchen.RightRoom = DiningRoom;
 
             // The Diningroom only allows you to go back to the kitchen.
             DiningRoom.BackRoom = Kitchen;
 
             // The Livingroom only allows you to go back to the hallway.
-            LivingRoom.BackRoom = DownstairsHallway;
+            LivingRoom.BackRoom = MainHallway;
 
             // The upstairs hallway allows you to go back down to the Downstairs hallway, into the master bedroom or up to the attic.
-            UpstairsHallway.BackRoom = DownstairsHallway;
+            UpstairsHallway.DownRoom = MainHallway;
             UpstairsHallway.LeftRoom = MasterBedroom;
             UpstairsHallway.UpRoom = Attic;
 
             // The Attic only allows you to go back downstairs. 
             Attic.BackRoom = UpstairsHallway;
 
-            // The Starting room.
+            // The important rooms are set to the start and final rooms.
             StartRoom = Basement;
             FinalRoom = Attic;
         }

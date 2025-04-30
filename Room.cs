@@ -11,6 +11,7 @@ namespace DungeonExplorer
         public Room RightRoom { get; set; }
         public Room UpRoom { get; set; }
         public Room BackRoom { get; set; }
+        public Room DownRoom { get; set; }
 
         public List<PlayerItems> Items { get; set; }
         public Monster Monster { get; set; }

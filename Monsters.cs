@@ -26,11 +26,11 @@ namespace DungeonExplorer
         {
             return Name;
         }
-
+        // Handles all monster attack logic and console output. 
         public void MonsterAttack()
         {
             Console.WriteLine($"{Name} Dealt {Damage} Damage");
-            Player.User.takedamage(Damage);
+            Player.User.Takedamage(Damage);
         }
     }
 }

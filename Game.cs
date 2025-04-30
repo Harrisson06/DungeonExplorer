@@ -11,7 +11,7 @@ namespace DungeonExplorer
     internal class Game
     {
         public Room currentRoom;
-        private Inventory inventory = new Inventory();
+        public Room FinalRoom;
 
         public Game()
         {
@@ -25,7 +25,7 @@ namespace DungeonExplorer
             while (true)
             {
                 Console.WriteLine("Which direction would you like to go?\n"
-                 + "[UP | DOWN | LEFT | RIGHT ]");
+                 + "[UP | DOWN | LEFT | RIGHT | BACK]");
                 string Keyinput = Console.ReadLine();
                 Keyinput.ToLower();
                 if (Keyinput == "up" && currentRoom.UpRoom != null)
@@ -35,10 +35,16 @@ namespace DungeonExplorer
                     break;
                 }
 
-                else if (Keyinput == "down" && currentRoom.BackRoom != null)
+                else if (Keyinput == "down" && currentRoom.DownRoom != null)
+                {
+                    currentRoom = currentRoom.DownRoom;
+                    Console.WriteLine("\nYou have gone down the stairs.");
+                    break;
+                }
+                else if (Keyinput == "back" && currentRoom.BackRoom != null)
                 {
                     currentRoom = currentRoom.BackRoom;
-                    Console.WriteLine("\nYou have gone Down the stairs.");
+                    Console.WriteLine("\nYou have gone back into the previous room.");
                     break;
                 }
 
@@ -55,7 +61,6 @@ namespace DungeonExplorer
                     Console.WriteLine("\nYou have gone into the right room.");
                     break;
                 }
-
                 // Error handling for erroneous input
                 else
                     Console.WriteLine("There is no room that way.\n");
@@ -84,8 +89,8 @@ namespace DungeonExplorer
                         while (currentRoom.Items.Count > 0)
                         {
                             Console.WriteLine($"You have picked up the item: " + currentRoom.Items[0].Name);
-                            inventory.PickUpItem(currentRoom.Items[0]);
-                            Console.WriteLine($"\nYour inventory now contains: " + inventory.InventoryContents() + "\n");
+                            Player.User.inventory.PickUpItem(currentRoom.Items[0]);
+                            Console.WriteLine($"\nYour inventory now contains: " + Player.User.inventory.InventoryContents() + "\n");
                             currentRoom.Items.RemoveAt(0);
                             
                         }
@@ -103,9 +108,39 @@ namespace DungeonExplorer
                         Console.WriteLine("Invalid input, Please try again.\n");
                     }
                 }
+                // Handles any other erroneous input
+                else
+                {
+                    break;
+                }
             }
 
         }
+        // Method for controlling all Monster combat in the game.
+        // Contains the combat loop for the player and monster.
+        // Player attacks first for simplicity.
+        public void MonsterCombat()
+        { 
+            if (currentRoom.Monster != null)
+            {
+                Console.WriteLine($"A {currentRoom.Monster.GetName()} has appeared!");
+                while (currentRoom.Monster.Health > 0)
+                {
+                    Player.User.PlayerAttack(currentRoom.Monster);
+                    currentRoom.Monster.MonsterAttack();
+                    Console.WriteLine($"You have {Player.User.Health} health left.");
+                    if (Player.User.Health <= 0)
+                    {
+                        Console.WriteLine("You have died!");
+                        Environment.Exit(0);
+                    }
+                }
+                Console.WriteLine($"You have defeated the {currentRoom.Monster.GetName()}!");
+                currentRoom.Monster = null;
+            }
+        }
+
+        // Main fucntion for the game to run.
         public void Start()
         {
             // Welcome message to the user.  
@@ -115,35 +150,33 @@ namespace DungeonExplorer
             Console.Write("Enter your name: ");
             string UserName = Console.ReadLine();
 
-            Player.User = new Player(UserName, 100);
+            Player.User = new Player(UserName, 100, 5);
+            // Creating a Map in the loop to be called upon. 
+            Map map = new Map();
+            map.MapRoute();
+
+            // Setting the starting room to the basement by using the StartRoom defined in Map.cs
+            currentRoom = map.StartRoom;
+            FinalRoom = map.FinalRoom;
 
             // Initializes the while loop to keep the game running.  
             bool playing = true;
             while (playing)
             {
-                // Creating a Map in the loop to be called upon. 
-                Map map = new Map(); 
-                map.MapRoute();
-
-                // Setting the starting room to the basement by using the StartRoom defined in Map.cs
-                currentRoom = map.StartRoom; 
-
                 Console.WriteLine(currentRoom.GetDescription());
                 PickItem();
                 Direction();
+                MonsterCombat();
 
-                Console.WriteLine(currentRoom.GetDescription());
-                PickItem();
-                Direction();
-
-                // If the current room is set to the final room, the end game loop will run.
-                if (currentRoom == map.FinalRoom)
+                // If the current room is the final room, the game will end.
+                if (currentRoom == FinalRoom && currentRoom.Monster == null)
                 {
-                    Console.WriteLine("You have reached the final room, you win!");
+                    Console.WriteLine("You have Defeated the Final Boss!");
+                    Console.WriteLine("Congratulations! You have completed the game!");
+                    Environment.Exit(0);
                 }
-
-                Console.ReadKey();
-                playing = false;
+                else
+                    continue;
             }
         }
     }

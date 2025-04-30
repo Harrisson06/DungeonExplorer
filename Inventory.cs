@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
-    class Inventory
+    public class Inventory
     {
         // Declare a private field to store the inventory.  
         public List<object> inventory;
@@ -17,9 +17,9 @@ namespace DungeonExplorer
             inventory = new List<object>();
         }
 
+        // Add the item to the inventory.  
         public void PickUpItem(object item)
         {
-            // Add the item to the inventory.  
             inventory.Add(item);
         }
 
@@ -35,15 +35,31 @@ namespace DungeonExplorer
             return string.Join(", ", inventory.Select(i => i.ToString()));
         }
 
+        // Returns all weapons in the Inventory. 
         public IEnumerable<Weapons> GetWeapons()
         {
             return inventory.OfType<Weapons>();
         }
 
+        // Gets the strongest weapon in the inventory and returns it.
+        public Weapons GetStrongestWeapon()
+        {
+            // Return the strongest weapon in the inventory.  
+            return GetWeapons().OrderByDescending(w => w.Damage).FirstOrDefault();
+        }
+
+        // Returns all potions in the inventory.
         public IEnumerable<Potions> GetPotions()
         {
             return inventory.OfType<Potions>();
         }
+
+        // Gets the strongest potion in the inventory and returns it.
+        public Potions ListPotions()
+        {
+            // Return the strongest potion in the inventory.  
+            return GetPotions().OrderByDescending(p => p.Health).FirstOrDefault();
     }
+}
 }
 

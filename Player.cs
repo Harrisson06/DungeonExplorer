@@ -6,13 +6,13 @@ namespace DungeonExplorer
     // This abstract class is used to create a base class for all creatures and players in the game.
     public interface IDamageable
     {
-        void takedamage(int Damage);
+        void Takedamage(int Damage);
         void Heal(int Health);
     }
     public abstract class Creature : IDamageable
     {
         public int Health { get; set; }
-        public void takedamage(int Damage)
+        public void Takedamage(int Damage)
         {
             Health -= Damage;
         }
@@ -32,13 +32,56 @@ namespace DungeonExplorer
     public class Player : Creature
     {
         internal static Player User;
+        public Inventory inventory = new Inventory();
 
         public string Name { get; private set; }
 
-        public Player(string name, int health) : base(health)
+        public Player(string name, int health, int Damage) : base(health)
         {
             Name = name;
             Health = 100;
+            inventory.PickUpItem(new Weapons("Fists", "Your fists, not very effective.", Damage));
+        }
+
+        public void PlayerAttack(Creature Target)
+        {
+            Weapons weapons = inventory.GetStrongestWeapon();
+            Console.WriteLine($"Do you want to use a potion? \n", "[ yes | no ]");
+            string Use = Console.ReadLine();
+            Use.ToLower();
+
+            if (Use == "yes")
+            {
+                while (true)
+                {
+                    if (inventory.ListPotions() != null)
+                    {
+                        inventory.GetPotions();
+                        var potion = inventory.ListPotions();
+                        Console.WriteLine($"You have used the {potion.Name} and healed for {potion.Health} health.");
+                        this.Heal(potion.Health);
+                        inventory.RemoveItem(potion);
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("You have no potions to use.");
+                        break;
+                    }
+
+                }
+            }
+            else if (Use == "no")
+            {
+                Console.WriteLine("You have chosen not to use a potion.");
+            }
+            else
+            {
+                Console.WriteLine("Invalid input, Please try again.\n");
+            }
+
+            Console.WriteLine($"You attack for: {weapons.Damage} Damage");
+            Target.Takedamage(weapons.Damage);
         }
 
         public void PlayerStats()
