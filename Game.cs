@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Media;
-using System.Security.Authentication;
-using System.Security.Cryptography.X509Certificates;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.ComTypes;
 
 namespace DungeonExplorer
 {
@@ -116,6 +110,7 @@ namespace DungeonExplorer
             }
 
         }
+
         // Method for controlling all Monster combat in the game.
         // Contains the combat loop for the player and monster.
         // Player attacks first for simplicity.
@@ -147,10 +142,17 @@ namespace DungeonExplorer
             Console.WriteLine("Welcome to the Decrepid House!" + "\n");
 
             // Getting user information.  
-            Console.Write("Enter your name: ");
+            Console.Write("Enter your name: \n\n");
             string UserName = Console.ReadLine();
-
             Player.User = new Player(UserName, 100, 5);
+
+            //Displaying all useful information about pathing.
+            Console.WriteLine("<<| Directions |>> \nFor simplicity you can go [UP] when in the basement, " +
+                "\nand while in the hallways [UP] to progress through the house" +
+                "\n\n<<| General Information |>>" +
+                "\n | You can pick your direction but you wont go into a room that doesnt exist." +
+                "\n | Killing the final boss will end the game.");
+
             // Creating a Map in the loop to be called upon. 
             Map map = new Map();
             map.MapRoute();
@@ -167,16 +169,13 @@ namespace DungeonExplorer
                 PickItem();
                 Direction();
                 MonsterCombat();
-
-                // If the current room is the final room, the game will end.
-                if (currentRoom == FinalRoom && currentRoom.Monster == null)
+                
+                // Conditional statement to end the program if they have defeated the final Boss.
+                if (currentRoom == map.FinalRoom && currentRoom.Monster == null)
                 {
-                    Console.WriteLine("You have Defeated the Final Boss!");
-                    Console.WriteLine("Congratulations! You have completed the game!");
+                    Console.WriteLine("You have Completed the game.");
                     Environment.Exit(0);
                 }
-                else
-                    continue;
             }
         }
     }

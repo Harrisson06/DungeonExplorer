@@ -3,12 +3,15 @@ using System.Collections.Generic;
 
 namespace DungeonExplorer
 {
-    // This abstract class is used to create a base class for all creatures and players in the game.
+    // This is an interface that deals with the damage taken and health gained. 
     public interface IDamageable
     {
         void Takedamage(int Damage);
         void Heal(int Health);
     }
+
+    // this class is using the interface "IDamageable" to construct the TakeDamage and heal functions.
+    // Using An abstract class the creature class is using the IDamaeable interface to be 
     public abstract class Creature : IDamageable
     {
         public int Health { get; set; }
@@ -36,6 +39,8 @@ namespace DungeonExplorer
 
         public string Name { get; private set; }
 
+        // Creating the player constructor for the player.
+        // Adding Fists to the inventory to allow the user to go into a room with a monster and fight it. 
         public Player(string name, int health, int Damage) : base(health)
         {
             Name = name;
@@ -43,6 +48,7 @@ namespace DungeonExplorer
             inventory.PickUpItem(new Weapons("Fists", "Your fists, not very effective.", Damage));
         }
 
+        // Function to deal withe the players attacks within the MonsterCombat() function.
         public void PlayerAttack(Creature Target)
         {
             Weapons weapons = inventory.GetStrongestWeapon();
@@ -75,19 +81,15 @@ namespace DungeonExplorer
             {
                 Console.WriteLine("You have chosen not to use a potion.");
             }
+            // Error checking for erroneus inputs. 
             else
             {
                 Console.WriteLine("Invalid input, Please try again.\n");
             }
 
+            // Displaying the Damage done to the monster.
             Console.WriteLine($"You attack for: {weapons.Damage} Damage");
             Target.Takedamage(weapons.Damage);
-        }
-
-        public void PlayerStats()
-        {
-            Console.WriteLine($"Player Name: ", Name);
-            Console.WriteLine($"Player Health: ", Health);
         }
     }
 }

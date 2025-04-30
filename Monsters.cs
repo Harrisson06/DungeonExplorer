@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
@@ -26,6 +22,7 @@ namespace DungeonExplorer
         {
             return Name;
         }
+
         // Handles all monster attack logic and console output. 
         public void MonsterAttack()
         {

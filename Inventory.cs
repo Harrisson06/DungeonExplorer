@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
+    // Inventory class to hold all inventory functions. 
     public class Inventory
     {
-        // Declare a private field to store the inventory.  
+        // Declaring the invenory for the game.
         public List<object> inventory;
 
         // Initializes the inventory in the constructor.  

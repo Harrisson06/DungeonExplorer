@@ -24,13 +24,13 @@ namespace DungeonExplorer
             var SteelSword = new Weapons("Steel Sword", "A steel sword, much more durable.", 27);
 
             // Creating a set of potions to be used in the game using Three parameters, Name, Description and Health.
-            var HealthPotion = new Potions("Health Potion", "A potion that gives you 40 health", 40);
-            var StrongHealthPotion = new Potions("Strong Health Potion", "Another health potion, this one has quite a kick.", 80);
+            var HealthPotion = new Potions("Health Potion", "A potion that gives you 60 health", 60);
+            var StrongHealthPotion = new Potions("Strong Health Potion", "This one has quite a kick. [100HP]", 100);
 
             // Creating a set of monsters to be used in the game using Three parameters, Name, Health and Damage.
             var Goblin = new Monster("Goblin", 15, 12);
             var Skeleton = new Monster("Skeleton", 20, 17);
-            var Dragon = new Monster("Dragon", 50, 30);
+            var Dragon = new Monster("Dragon", 50, 20);
             
             // Creating a set of rooms to be used in the game using Three parameters, Description, monster and potion.
             // Null is used to set the monster or potion to nothing, this is used to create rooms that do not have a monster or potion in them.
@@ -57,14 +57,14 @@ namespace DungeonExplorer
 
             var UpstairsHallway = new Room("\n{Upstairs Hallway}\n" 
                 + "\nAfter leaving the MasterBedroom, you come across a scrpaing sound at the end of the hallway."
-                , Skeleton, IronSword);
+                , Skeleton, SteelSword);
 
             var DiningRoom = new Room("\n{Dining Room}\n" 
-                + "\nThe tabale is set, where did they all go?", null, StrongHealthPotion, SteelSword);
+                + "\nThe tabale is set, where did they all go?", null, StrongHealthPotion, IronSword);
 
             var Attic = new Room("\n{Attic}\n" 
                 + "\nA densly populated room with lots of treasure" 
-                + "\nyou hear a faint noise coming from the corner of the room."
+                + "\nyou have completed the Decrepid house."
                 , Dragon, null);
 
             // Setting the pathing for the rooms, the basement has only one way out, up the stiars.
