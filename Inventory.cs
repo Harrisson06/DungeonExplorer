@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace DungeonExplorer
@@ -20,12 +21,16 @@ namespace DungeonExplorer
         public void PickUpItem(object item)
         {
             inventory.Add(item);
+            // Testing to see if the item was added to the inventory, if it wasnt a message would pop up. 
+            Debug.Assert(inventory.Contains(item), "Item was not added to the inventory.");
         }
 
         // Removes an item from the inventory.  
         public void RemoveItem(object item)
         {
             inventory.Remove(item);
+            // Testing to see if the item was removed from the inventory, if it wasnt a message would pop up.
+            Debug.Assert(!inventory.Contains(item), "Item was not removed from the inventory.");
         }
 
         // Returns the contents of the Inventory list with a comma separator.  

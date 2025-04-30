@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace DungeonExplorer
 {
@@ -26,8 +28,13 @@ namespace DungeonExplorer
         // Handles all monster attack logic and console output. 
         public void MonsterAttack()
         {
+            var current = Player.User.Health;
             Console.WriteLine($"{Name} Dealt {Damage} Damage");
             Player.User.Takedamage(Damage);
+            // Testing to see if the player will take damage.
+            // Checks health agaist the last recorded health,
+            // and if it isnt lower, breaks and opens the call stack to that point.
+            Debug.Assert(Player.User.Health < current);
         }
     }
 }
