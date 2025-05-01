@@ -22,7 +22,7 @@ namespace DungeonExplorer
         {
             inventory.Add(item);
             // Testing to see if the item was added to the inventory, if it wasnt a message would pop up. 
-            Debug.Assert(inventory.Contains(item), "Item was not added to the inventory.");
+            Testing.CheckItemAdded(inventory, item);
         }
 
         // Removes an item from the inventory.  
